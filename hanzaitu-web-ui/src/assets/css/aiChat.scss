@@ -1,0 +1,535 @@
+.ai-chat-box{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  .ai-chat-left{
+    width: 22rem;
+    height: 100%;
+    background: #11141E;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .left-top{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 5rem;
+      padding: 0 1.6rem;
+      box-sizing: border-box;
+      .left-top-text{
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #FFFFFF;
+      }
+      .left-top-icon{
+        width: 1.8rem;
+        height: 1.8rem;
+        background: url("https://image.hanzaitu.com/static/aiChat/icon_Setting18@2x.png") no-repeat;
+        background-size: 100%;
+        cursor: pointer;
+      }
+    }
+    .left-center{
+      width: 100%;
+      height: calc(100% - 15rem);
+      overflow-y: auto;
+      padding-left:1.6rem;
+      box-sizing: border-box;
+      .btnx {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 18.8rem;
+        height: 3rem;
+        border: 1px solid #94A3B8;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        box-sizing: border-box;
+        .btnx-text {
+          font-size: 1.2rem;
+          font-weight: bold;
+          padding-left: 0.8rem;
+          width:16rem;
+          color: #fff;
+          box-sizing: border-box;
+          overflow:hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          -o-text-overflow:ellipsis;
+        }
+        .edit{
+          display: none;
+          padding-right: 0.8rem;
+        }
+      }
+      .btnx:hover .edit{
+        display: block;
+      }
+      .btnx.active {
+        border: 1px solid transparent;
+        background-image: linear-gradient(#11182F, #11182F),
+        linear-gradient(to top left,
+                        rgba(124, 108, 251, 1),
+                        rgba(233, 109, 194, 1));
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+        .btnx-text {
+          background: linear-gradient(90deg, #836CF7 0%, #EC6DC0 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+    }
+    .left-bottom{
+      width: 100%;
+      padding: 0 1.2rem;
+      box-sizing: border-box;
+      .btn-css{
+        margin-bottom: 4rem;
+        width: 100%;
+        height: 4.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        background-image: linear-gradient(#11182F, #11182F),
+        linear-gradient(to top left,
+                        rgba(124, 108, 251, 1),
+                        rgba(233, 109, 194, 1));
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+        border-radius:5px;
+        cursor: pointer;
+        i{
+          width: 1.8rem;
+          height: 1.8rem;
+          background: url("https://image.hanzaitu.com/static/aiChat/icon_tianjia18@2x.png") no-repeat;
+          background-size: 100%;
+        }
+        span{
+          margin-left: 0.8rem;
+          font-size: 1.2rem;
+          font-weight: bold;
+          background: linear-gradient(90deg, #836CF7 0%, #EC6DC0 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+    }
+  }
+  .ai-chat-center{
+    width: calc(100% - 63rem);
+    height: 100%;
+    background: #080B16;
+  }
+  .ai-chat-right{
+    width: 41rem;
+    height: 100%;
+    background: #11141E;
+    .chat-right-top{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 5.4rem;
+      padding: 0 1.6rem;
+      .search-box {
+        background-color: #2E3653;
+        display: flex;
+        align-items: center;
+        border-radius: 0.4rem;
+        padding: 0.4rem;
+        width: 18.3rem;
+        .search-input {
+          background-color: transparent;
+          border: none;
+          outline: none;
+          color: #94A3B8;
+          flex: 1;
+          font-size: 1.2rem;
+        }
+        .search-icon {
+          margin-left: 1rem;
+          margin-right: 1rem;
+          .iconfont {
+            font-size: 1.4rem;
+            color: #B0B3BF;
+          }
+        }
+      }
+    }
+    .chat-right-cont{
+      height: 100%;
+      overflow-y: auto;
+    }
+    .chat-right-cy{
+      padding: 0 0 0 1.6rem;
+      .cy-tit{
+        height: 5rem;
+        line-height:5rem;
+      }
+      .my-call-word{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 2rem;
+        box-sizing: border-box;
+        .add-btn{
+          width: 60px;
+          height: 25px;
+          text-align: center;
+          line-height: 25px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-radius: 0.6rem;
+          box-sizing: border-box;
+          border: 1px solid transparent;
+          background-image: linear-gradient(#11182F, #11182F), linear-gradient(to top left, rgb(124, 108, 251), rgb(233, 109, 194));
+          background-origin: border-box;
+          background-clip: content-box, border-box;
+          cursor: pointer;
+        }
+      }
+      .cy-cont{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        .cy-cont-item{
+          width: 11.8rem;
+          height: 7rem;
+          border-radius: 0.4rem;
+          border: 1px solid #94A3B8;
+          margin-right: 1rem;
+          margin-bottom: 1rem;
+          cursor: pointer;
+          .item-top{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 2.2rem;
+            .item-tit{
+              width: 8.3rem;
+              height: 2.2rem;
+              font-size: 1.4rem;
+              overflow:hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              -o-text-overflow:ellipsis;
+              padding-left: 0.4rem;
+              padding-top: 0.4rem;
+            }
+            .item-close{
+              display: none;
+              width: 2.2rem;
+              text-align: center;
+              height: 1.8rem;
+              line-height: 1.8rem;
+              background: #23293E;
+              border-radius: 0 0 0 0.2rem;
+            }
+          }
+          .item-text{
+            width: 100%;
+            height: calc(100% - 2.2rem);
+            overflow: hidden;
+            font-size: 1.2rem;
+            font-weight: 400;
+            padding: 0.4rem;
+            line-height: 2rem;
+            opacity:0.5;
+            box-sizing: border-box;
+            -webkit-line-clamp: 2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        .cy-cont-item:hover .item-close{
+          display: block;
+          cursor: pointer;
+        }
+        .cy-item-add{
+          width: 11.8rem;
+          height: 7rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-radius: 0.4rem;
+          box-sizing: border-box;
+          border: 1px solid transparent;
+          background-image: linear-gradient(#11182F, #11182F),
+          linear-gradient(to top left,
+                          rgba(124, 108, 251, 1),
+                          rgba(233, 109, 194, 1));
+          background-origin: border-box;
+          background-clip: content-box, border-box;
+          border-radius: 0.4rem;
+          cursor: pointer;
+          i{
+            width: 1.8rem;
+            height: 1.8rem;
+            background: url("https://image.hanzaitu.com/static/aiChat/icon_tianjia18@2x.png") no-repeat;
+            background-size: 100%;
+          }
+          div{
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #836CF7 0%, #EC6DC0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+      }
+    }
+
+
+  }
+  .dialog-title{
+    font-size: 2.2rem;
+    font-weight: 500;
+  }
+  .call-word-box{
+    width: 100%;
+    .call-word-search{
+      background-color: #2E3653;
+      display: flex;
+      align-items: center;
+      border-radius: 0.4rem;
+      padding:0 0.4rem;
+      width: 71.1rem;
+      height: 3.4rem;
+      margin: 0 auto;
+      box-sizing: border-box;
+      .search-input {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #94A3B8;
+        flex: 1;
+        font-size: 1.2rem;
+      }
+      .search-icon {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        .iconfont {
+          font-size: 1.4rem;
+          color: #B0B3BF;
+        }
+      }
+    }
+    .call-word-cont{
+      margin-top: 4rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      max-height: 55rem;
+      overflow-y: auto;
+      .call-word-item{
+        width: 22.5rem;
+        height: 7.1rem;
+        border-radius: 0.4rem;
+        border: 1px solid #94A3B8;
+        margin:0 0.8rem 1.6rem 0.8rem;
+        .call-word-item-tit{
+          position: relative;
+          padding: 0.5rem 0.8rem 0;
+          .call-word-item-tit-text{
+            font-size: 1.4rem;
+            color: #fff;
+            width: 90%;
+            height: 2.3rem;
+            box-sizing: border-box;
+            overflow:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow:ellipsis;
+          }
+          .right-tag{
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0.2rem 0.8rem;
+            background: #23293E;
+            border-radius: 0 0 0 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #FFFFFF;
+          }
+        }
+        .call-word-item-cont{
+          font-size: 1.2rem;
+          overflow: hidden;
+          line-height: 2rem;
+          height: calc(100% - 3.1rem);
+          padding: 0 0.4rem;
+          -webkit-line-clamp: 2;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .call-word-active{
+        background: #1B2546;
+        border: 1px solid transparent;
+        background-image: linear-gradient(#11182F, #11182F),
+        linear-gradient(to top left,
+                        rgba(124, 108, 251, 1),
+                        rgba(233, 109, 194, 1));
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+      }
+    }
+  }
+}
+
+
+.chat-frame-box{
+  width: 100%;
+  height: 100%;
+  padding:6rem 3.4rem 4rem 3.4rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  .input-show-box{
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    .quiz-item{
+      margin-bottom: 4rem;
+      padding-right: 1rem;
+      box-sizing: border-box;
+      .quiz-item-cont{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        .avatar-me{
+          width: 3.2rem;
+          height: 3.2rem;
+          background: url("https://image.hanzaitu.com/static/aiChat/icon_tuzi32@2x.png") no-repeat;
+          background-size: 100%;
+        }
+        .avatar-ai{
+          width: 3.2rem;
+          height: 3.2rem;
+          background: url("https://image.hanzaitu.com/static/aiChat/icon_gpt32@2x.png") no-repeat;
+          background-size: 100%;
+        }
+        .text-cont{
+          flex: 1;
+          width: calc(100% - 4.4rem);
+          margin-left: 1.2rem;
+          line-height: 2.4rem;
+          pre{
+            width: 100%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1.4rem;
+          }
+        }
+      }
+      .quiz-item-icon{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 1.9rem;
+        .icon-btn{
+          width: 1.8rem;
+          height: 1.8rem;
+          cursor: pointer;
+          margin-left: 2.4rem;
+        }
+        .icon1{
+          background: url("https://image.hanzaitu.com/static/aiChat/icon_shoucang@2x.png") no-repeat;
+          background-size: 100%;
+        }
+        .activeClass{
+          background: url("https://image.hanzaitu.com/static/aiChat/icon_shoucang_xuanzhong@2x.png") no-repeat;
+          background-size: 100%;
+        }
+        .icon2{
+          background: url("https://image.hanzaitu.com/static/aiChat/icon_bianji18@2x.png") no-repeat;
+          background-size: 100%;
+        }
+        .icon3{
+          background: url("https://image.hanzaitu.com/static/aiChat/icon_shuaxin18@2x.png") no-repeat;
+          background-size: 100%;
+        }
+        .icon4{
+          background: url("https://image.hanzaitu.com/static/aiChat/icon_fuzhi18@2x.png") no-repeat;
+          background-size: 100%;
+        }
+      }
+
+    }
+  }
+  .input-box{
+    width: 100%;
+    margin-top: 2rem;
+    .input-box-cont{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1A1E2D;
+      border-radius: 0.4rem;
+      border: 1px solid #4E5C8D;
+      .cont-left{
+        flex: 1;
+      }
+      .cont-right{
+        width: 3.2rem;
+        height: 3.2rem;
+        background: url("https://image.hanzaitu.com/static/aiChat/icon_send18@2x.png") no-repeat;
+        background-size: 100%;
+        cursor: pointer;
+        margin-left: 5rem;
+        margin-right: 2.4rem;
+      }
+    }
+  }
+}
+
+.aiChat-input-tag{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  .img-box{
+    width: 24rem;
+    height: 24rem;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .text{
+    font-size: 2.8rem;
+    font-weight: 500;
+    background: linear-gradient(90deg, #836CF7 0%, #EC6DC0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 4rem 0 1.2rem;
+  }
+  .subtext{
+    font-size: 1.6rem;
+    color: #FFFFFF;
+  }
+}
+

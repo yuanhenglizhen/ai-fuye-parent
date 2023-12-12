@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzaitu.ai.draw.mapper.AiDrawRecordMapper">
+
+    <sql id="selectDrawRecordSql">
+        SELECT id,task_id,prompt,prompt_en,submit_time,start_time,finish_time,mj_raw_draw_image,mj_new_draw_image,status,
+               fail_reason,type,user_upload_image_url,user_id,message_hash,related_task_id,message_id,final_prompt,
+               channel_id,prompt_user_raw,picture,img_width,img_height FROM ai_draw_record
+    </sql>
+
+    <select id="findDrawRecordEntityByTaskId" resultType="com.hanzaitu.ai.draw.domain.entity.AiDrawRecordEntity">
+        <include refid="selectDrawRecordSql"/>
+        <where>
+            del_flag = '0' AND task_id = #{taskId}
+            <if test="userId != null and userId != '' ">
+             AND user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <select id="vagueSelectDrawRecord" resultType="com.hanzaitu.ai.draw.domain.entity.AiDrawRecordEntity">
+        <bind name="pattern" value="picture + '%'" />
+        <include refid="selectDrawRecordSql"/>
+        <where>
+            picture LIKE #{pattern}
+        </where>
+    </select>
+
+    <select id="selectDrawRecordEntityByUserId" resultType="com.hanzaitu.ai.draw.domain.entity.AiDrawRecordEntity">
+        <include refid="selectDrawRecordSql"/>
+        <where>
+            del_flag = '0' AND user_id = #{userId}
+        </where>
+        ORDER BY submit_time DESC
+    </select>
+
+    <insert id="insertDrawRecordEntity" parameterType="com.hanzaitu.ai.draw.domain.entity.AiDrawRecordEntity"
+            keyProperty="id">
+        insert into ai_draw_record (
+        <trim prefix="" suffixOverrides=",">
+            <if test="taskId != null and taskId != '' ">task_id,</if>
+            <if test="prompt != null and prompt != '' ">prompt,</if>
+            <if test="promptEn != null and promptEn != '' ">prompt_en,</if>
+            <if test="submitTime != null and submitTime != '' ">submit_time,</if>
+            <if test="startTime != null and startTime != ''">start_time,</if>
+            <if test="finishTime != null and finishTime != ''">finish_time,</if>
+            <if test="mjRawDrawImage != null and mjRawDrawImage != ''">mj_raw_draw_image,</if>
+            <if test="mjNewDrawImage != null and mjNewDrawImage != ''">mj_new_draw_image,</if>
+            <if test="status != null">status,</if>
+            <if test="failReason != null and failReason != ''">fail_reason,</if>
+            <if test="type != null">type,</if>
+            <if test="userUploadImageUrl != null and userUploadImageUrl != ''">user_upload_image_url,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="messageId != null and messageId != ''">message_id,</if>
+            <if test="taskKey != null and taskKey != ''">task_key,</if>
+            <if test="notifyHook != null and notifyHook != ''">notify_hook,</if>
+            <if test="relatedTaskId != null and relatedTaskId != ''">related_task_id,</if>
+            <if test="finalPrompt != null and finalPrompt != ''">final_prompt,</if>
+            <if test="messageHash != null and messageHash != ''">message_hash,</if>
+            <if test="channelId != null and channelId != ''">channel_id,</if>
+            <if test="promptUserRaw != null and promptUserRaw != ''">prompt_user_raw,</if>
+            <if test="picture != null and picture != ''">picture,</if>
+            <if test="imgHeight != null and imgHeight != ''">img_height,</if>
+            <if test="imgWidth != null and imgWidth != ''">img_width</if>
+        </trim>
+        )values(
+        <trim prefix="" suffixOverrides=",">
+            <if test="taskId != null and taskId != '' ">#{taskId},</if>
+            <if test="prompt != null and prompt != '' ">#{prompt},</if>
+            <if test="promptEn != null and promptEn != '' ">#{promptEn},</if>
+            <if test="submitTime != null and submitTime != '' ">#{submitTime},</if>
+            <if test="startTime != null and startTime != ''">#{startTime},</if>
+            <if test="finishTime != null and finishTime != ''">#{finishTime},</if>
+            <if test="mjRawDrawImage != null and mjRawDrawImage != ''">#{mjRawDrawImage},</if>
+            <if test="mjNewDrawImage != null and mjNewDrawImage != ''">#{mjNewDrawImage},</if>
+            <if test="status != null">#{status},</if>
+            <if test="failReason != null and failReason != ''">#{failReason},</if>
+            <if test="type != null">#{type},</if>
+            <if test="userUploadImageUrl != null and userUploadImageUrl != ''">#{userUploadImageUrl},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="messageId != null and messageId != ''">#{messageId},</if>
+            <if test="taskKey != null and taskKey != ''">#{taskKey},</if>
+            <if test="notifyHook != null and notifyHook != ''">#{notifyHook},</if>
+            <if test="relatedTaskId != null and relatedTaskId != ''">#{relatedTaskId},</if>
+            <if test="finalPrompt != null and finalPrompt != ''">#{finalPrompt},</if>
+            <if test="messageHash != null and messageHash != ''">#{messageHash},</if>
+            <if test="channelId != null and channelId != ''">#{channelId},</if>
+            <if test="promptUserRaw != null and promptUserRaw != ''">#{promptUserRaw},</if>
+            <if test="picture != null and picture != ''">#{picture},</if>
+            <if test="imgHeight != null and imgHeight != ''">#{imgHeight},</if>
+            <if test="imgWidth != null and imgWidth != ''">#{imgWidth}</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateDrawRecordEntity" parameterType="com.hanzaitu.ai.draw.domain.entity.AiDrawRecordEntity">
+        update ai_draw_record
+        <set>
+            <trim prefix="" suffixOverrides=",">
+                <if test="prompt != null and prompt != '' ">prompt = #{prompt},</if>
+                <if test="promptEn != null and promptEn != '' ">prompt_en = #{promptEn},</if>
+                <if test="submitTime != null and submitTime != '' ">submit_time = #{submitTime},</if>
+                <if test="startTime != null and startTime != ''">start_time = #{startTime},</if>
+                <if test="finishTime != null and finishTime != ''">finish_time = #{finishTime},</if>
+                <if test="mjRawDrawImage != null and mjRawDrawImage != ''">mj_raw_draw_image = #{mjRawDrawImage},</if>
+                <if test="mjNewDrawImage != null and mjNewDrawImage != ''">mj_new_draw_image = #{mjNewDrawImage},</if>
+                <if test="status != null">status = #{status},</if>
+                <if test="failReason != null and failReason != ''">fail_reason = #{failReason},</if>
+                <if test="type != null">type = #{type},</if>
+                <if test="userUploadImageUrl != null and userUploadImageUrl != ''">user_upload_image_url = #{userUploadImageUrl},</if>
+                <if test="userId != null">user_id = #{userId},</if>
+                <if test="messageId != null and messageId != ''">message_id = #{messageId},</if>
+                <if test="taskKey != null and taskKey != ''">task_key = #{taskKey},</if>
+                <if test="notifyHook != null and notifyHook != ''">notify_hook = #{notifyHook},</if>
+                <if test="relatedTaskId != null and relatedTaskId != ''">related_task_id = #{relatedTaskId},</if>
+                <if test="finalPrompt != null and finalPrompt != ''">final_prompt = #{finalPrompt},</if>
+                <if test="messageHash != null and messageHash != ''">message_hash = #{messageHash},</if>
+                <if test="channelId != null and channelId != ''">channel_id = #{channelId},</if>
+                <if test="picture != null and picture != ''">picture = #{picture},</if>
+                <if test="imgHeight != null and imgHeight != ''">img_height = #{imgHeight},</if>
+                <if test="imgWidth != null and imgWidth != ''">img_width = #{imgWidth}</if>
+            </trim>
+        </set>
+        where task_id = #{taskId}
+    </update>
+
+    <delete id="deleteDrawRecord" parameterType="String">
+        UPDATE ai_draw_record SET `del_flag` = '1' WHERE task_id = #{taskId}
+    </delete>
+
+</mapper>

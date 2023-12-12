@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--<meta name="viewport"
+    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />-->
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <!-- 启用360浏览器的极速模式(webkit) -->
+  <meta name="renderer" content="webkit">
+  <!-- 避免IE使用兼容模式 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+  <meta name="HandheldFriendly" content="true">
+
+  <!-- windows phone 点击无高光 -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta content="telephone=no" name="format-detection" />
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <style>
+    html { height: 100%;font-size: 62.5%;}
+    body { height: 100%;font-size: 62.5%;} /* =14px */
+    @media only screen and (min-width: 1800px){
+      html {
+        font-size: 62.5%;
+      }
+      /*里面的代码可以根据自己需求去进行更改*/
+      /* 设置滚动条的样式 */
+      ::-webkit-scrollbar {
+        width:0.4rem;
+        height:4rem;
+      }
+      /* 滚动槽 */
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius:0.4rem;
+      }
+      /* 滚动条滑块 */
+      ::-webkit-scrollbar-thumb {
+        border-radius:0.4rem;
+        background:rgba(255,255,255,0.1);
+        -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5);
+      }
+    }
+    @media only screen and (min-width: 1601px) and (max-width: 1800px){
+      html {
+        font-size:8.5px!important;
+      }
+    }
+    @media only screen and (min-width: 1461px) and (max-width: 1600px){
+      html {
+        font-size:8px!important;
+      }
+    }
+    @media only screen and (min-width: 1320px) and (max-width: 1460px){
+      html {
+        font-size:7.5px!important;
+      }
+    }
+    @media only screen and (min-width: 750px) and (max-width: 1319px){
+      html {
+        font-size:6.5px!important;
+      }
+    }
+    @media screen and (max-width: 750px){
+      html {
+        font-size:10px!important;
+        color: #fff;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+
+    let str = document.querySelector("body");
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i.test(navigator.userAgent)) {
+      str.style.cssText = 'font-size:10px'
+    } else {
+      str.style.cssText = 'font-size: 62.5%'
+    }
+
+    /*通用的获取元素样式的方法*/
+    function getStyle(obj, name) {
+      if (window.getComputedStyle) {
+        //正常浏览器的方式，具有getComputedStyle()方法
+        return getComputedStyle(obj, null)[name];
+      } else {
+        //IE8的方式，没有getComputedStyle()方法
+        return obj.currentStyle[name];
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzaitu.admin.system.mapper.SysGptKeyMapper">
+
+    <resultMap type="com.hanzaitu.admin.system.domain.GptKey" id="GptKeyResult">
+        <id     property="id"     column="id"     />
+        <result property="chatKey"   column="chat_key"   />
+        <result property="model"     column="model"      />
+        <result property="proxyHost"   column="proxy_host"   />
+        <result property="proxyPort" column="proxy_port" />
+        <result property="createTime"   column="create_time"   />
+    </resultMap>
+
+    <sql id="selectGptKeySql">
+        SELECT id,chat_key,model,proxy_host,proxy_port,create_time FROM ai_gpt_key
+    </sql>
+
+    <insert id="insertGptKey" parameterType="com.hanzaitu.admin.system.domain.GptKey" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_gpt_key(
+        <trim prefix="" suffixOverrides=",">
+            <if test="chatKey != null and chatKey != ''">chat_key,</if>
+            <if test="model != null ">model,</if>
+            <if test="proxyHost != null and proxyHost != ''">proxy_host,</if>
+            <if test="proxyPort != null">proxy_port</if>
+        </trim>
+        )values(
+        <trim prefix="" suffixOverrides=",">
+            <if test="chatKey != null and chatKey != ''">#{chatKey},</if>
+            <if test="model != null ">#{model},</if>
+            <if test="proxyHost != null and proxyHost != ''">#{proxyHost},</if>
+            <if test="proxyPort != null">#{proxyPort}</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateGptKey" parameterType="com.hanzaitu.admin.system.domain.GptKey">
+        update ai_gpt_key
+        <set>
+            <trim prefix="" suffixOverrides=",">
+                <if test="chatKey != null and chatKey != ''">chat_key = #{chatKey},</if>
+                <if test="model != null ">model=#{model},</if>
+                <if test="proxyHost != null and proxyHost != ''">proxy_host=#{proxyHost},</if>
+                <if test="proxyPort != null ">proxy_port=#{proxyPort}</if>
+            </trim>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectGptKeyList" resultMap="GptKeyResult">
+        <include refid="selectGptKeySql"/>
+        <where>
+            deleted = 0
+        </where>
+    </select>
+
+    <delete id="deleteGptKey" parameterType = "Integer">
+        UPDATE ai_gpt_key SET deleted = 1 WHERE id = #{id}
+    </delete>
+
+    <select id="findOneGptKey" parameterType = "String" resultMap="GptKeyResult">
+        <include refid="selectGptKeySql"/>
+        <where>
+            chat_key = #{chatKey} AND deleted = 0
+        </where>
+    </select>
+
+</mapper>

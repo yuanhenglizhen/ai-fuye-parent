@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzaitu.ai.draw.mapper.AiDrawCollectionMapper">
+
+    <resultMap type="com.hanzaitu.ai.draw.domain.entity.AiDrawCollectEntity" id="drawCollectMap">
+        <result property="id"   column="id"   />
+        <result property="task_id"   column="taskId"   />
+        <result property="prompt"  column="prompt"  />
+        <result property="img_url"  column="imgUrl"  />
+        <result property="wie_num"   column="wieNum"   />
+        <result property="create_time"   column="createTime"   />
+        <result property="user_name"   column="userName"   />
+    </resultMap>
+
+    <!--查询创作收藏列表-->
+    <select id="selectDrawCollectList" resultMap="drawCollectMap">
+
+        SELECT a.task_id,a.prompt,a.img_url,b.wie_num,a.create_time,c.nick_name as user_name,a.img_width,a.img_height FROM ai_draw_collect a
+        LEFT JOIN ai_draw_quadrat b ON a.task_id = b.task_id
+        LEFT JOIN customer_user c ON a.user_id = c.id
+        <where>
+            a.user_id = #{userId}
+        </where>
+        ORDER BY a.create_time DESC
+    </select>
+
+</mapper>

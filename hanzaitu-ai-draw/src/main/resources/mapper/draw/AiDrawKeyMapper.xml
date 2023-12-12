@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzaitu.ai.draw.mapper.AiDrawKeyMapper">
+
+    <sql id="selectDrawKeySql">
+        SELECT token_id,guild_id,channel_id,user_token,bot_token,
+               core_size,create_time,proxy_host,proxy_port,time_out
+        FROM ai_draw_key
+    </sql>
+
+    <select id="selectDrawKeyList" resultType="com.hanzaitu.ai.draw.domain.entity.DiscordAuthTokenEntity">
+        <include refid="selectDrawKeySql"/>
+        <where>
+            del_flag = '0'
+        </where>
+    </select>
+</mapper>

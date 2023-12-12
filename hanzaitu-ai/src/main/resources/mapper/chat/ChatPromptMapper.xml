@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzaitu.ai.chat.mapper.ChatPromptMapper">
+
+    <sql id="selectCollectPromptSql">
+        SELECT id,user_id,prompt,create_time,del_flag,msg_id FROM ai_prompt_collect
+    </sql>
+
+    <!--查询提示词分类-->
+    <select id="selectPromptCategory" resultType="com.hanzaitu.ai.chat.domain.entity.AiPromptCategoryEntity">
+        SELECT id,category_name,create_by,create_time,update_by,remark FROM ai_prompt_category WHERE del_flag = '0'
+    </select>
+
+    <!--查询提示词-->
+    <select id="selectPrompt" parameterType="Integer" resultType="com.hanzaitu.ai.chat.domain.entity.AiPromptEntity">
+        SELECT id,prompt,usage_count,role,category_id,remark,create_time,del_flag
+        FROM ai_prompt WHERE category_id = #{categoryId} AND del_flag = '0'
+    </select>
+
+    <select id="selectCollectPromptByMsgId" parameterType="String" resultType="com.hanzaitu.ai.chat.domain.entity.AiCollectPromptEntity">
+        <include refid="selectCollectPromptSql"/>
+        <where>
+        AND msg_id = #{msgId}
+        </where>
+    </select>
+
+    <!--查询收藏提示词-->
+    <select id="selectCollectPrompt" parameterType="Integer" resultType="com.hanzaitu.ai.chat.domain.entity.AiCollectPromptEntity">
+        <include refid="selectCollectPromptSql"/>
+        <where>
+            user_id = #{userId}
+        </where>
+    </select>
+
+    <!--插入提示词-->
+    <insert id="insertCollectPrompt" parameterType="com.hanzaitu.ai.chat.domain.entity.AiCollectPromptEntity"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into ai_prompt_collect (
+            user_id,prompt,win_id,create_time,msg_id
+        )values(
+           #{userId},#{prompt},#{winId},#{createTime},#{msgId}
+        )
+    </insert>
+
+    <delete id="deleteCollectPrompt" parameterType="String">
+            DELETE FROM ai_prompt_collect WHERE msg_id =#{msgId}
+    </delete>
+
+</mapper>

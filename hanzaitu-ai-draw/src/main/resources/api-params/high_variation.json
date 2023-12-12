@@ -1,0 +1,14 @@
+{
+  "type": 3,
+  "nonce":"$nonce",
+  "guild_id": "$guild_id",
+  "channel_id": "$channel_id",
+  "message_flags": 0,
+  "message_id": "$message_id",
+  "application_id": "936929561302675456",
+  "session_id": "f54417f279b6882b6be27baa7c973859",
+  "data": {
+    "component_type": 2,
+    "custom_id": "MJ::JOB::high_variation::1::$message_hash::SOLO"
+  }
+}

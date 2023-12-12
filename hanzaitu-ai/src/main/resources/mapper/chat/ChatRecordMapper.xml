@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzaitu.ai.chat.mapper.ChatRecordMapper">
+
+    <sql id="selectChatRecordVo">
+        select win_id, user_id, sort, content, occur_time, user_name, role, name, submodel from ai_chat_record
+    </sql>
+
+    <sql id="updateDeleteChatRecord">
+        update ai_chat_record
+        <set>
+            del_flag = 1
+        </set>
+        where user_id = #{userId}
+    </sql>
+
+    <delete id="deleteChatHistory">
+        DELETE FROM ai_chat_record
+        <where>
+            win_id IN
+            <foreach collection="list" item="winId" index="index" open="(" close=")" separator=",">
+                #{winId}
+            </foreach>
+        </where>
+    </delete>
+
+    <select id="selectChatEntityByUserWinId" resultType="com.hanzaitu.ai.chat.domain.entity.ChatRecordEntity">
+        <include refid="selectChatRecordVo"/>
+        <where>
+            AND win_id = #{winId} AND user_id = #{userId} AND del_flag = 0
+        </where>
+        ORDER BY occur_time DESC
+        <if  test="numberOfContexts != null">
+            LIMIT #{numberOfContexts}
+        </if>
+    </select>
+
+    <select id="selectChatHistoryTitle" resultType="com.hanzaitu.ai.chat.domain.entity.ChatRecordEntity">
+        <include refid="selectChatRecordVo"/>
+        <where>
+            AND user_id = #{userId} AND model = #{model} AND role = 'user' AND del_flag = 0
+        </where>
+        GROUP BY win_id
+        ORDER BY occur_time ASC
+    </select>
+
+    <update id="updateDeleteChatHistoryByWinId">
+        <include refid="updateDeleteChatRecord"/>
+        AND win_id IN
+        <foreach item="item" index="index" collection="winIdList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="updateDeleteChatHistoryByUserId">
+        <include refid="updateDeleteChatRecord"/>
+    </update>
+
+    <insert id="insertChatRecord" parameterType="com.hanzaitu.ai.chat.domain.entity.ChatRecordEntity"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into ai_chat_record (
+            <trim prefix="" suffixOverrides=",">
+                <if test="winId != null and winId != '' ">win_id,</if>
+                <if test="userId != null and userId != '' ">user_id,</if>
+                <if test="sort != null and sort != '' ">sort,</if>
+                <if test="content != null and content != '' ">content,</if>
+                <if test="occurTime != null and occurTime != ''">occur_time,</if>
+                <if test="userName != null and userName != ''">user_name,</if>
+                <if test="role != null and role != ''">role,</if>
+                <if test="name != null and name != ''">name,</if>
+                <if test="expiration != null and expiration != ''">expiration,</if>
+                <if test="msgId != null and msgId != ''">msg_id,</if>
+                <if test="pid != null ">pid,</if>
+                <if test="model != null and model != ''">model,</if>
+                <if test="model != null and model != ''">submodel</if>
+            </trim>
+        )values(
+            <trim prefix="" suffixOverrides=",">
+                <if test="winId != null and winId != '' ">#{winId},</if>
+                <if test="userId != null and userId != '' ">#{userId},</if>
+                <if test="sort != null and sort != '' ">#{sort},</if>
+                <if test="content != null and content != '' ">#{content},</if>
+                <if test="occurTime != null and occurTime != '' ">#{occurTime},</if>
+                <if test="userName != null and userName != ''">#{userName},</if>
+                <if test="role != null and role != '' ">#{role},</if>
+                <if test="name != null and name != '' ">#{name},</if>
+                <if test="expiration != null and expiration != '' ">#{expiration},</if>
+                <if test="msgId != null and msgId != ''">#{msgId},</if>
+                <if test="pid != null ">#{pid},</if>
+                <if test="model != null and model != ''">#{model},</if>
+                <if test="subModel != null and subModel != ''">#{subModel}</if>
+            </trim>
+        )
+    </insert>
+
+    <select id="selectChatKeyList" resultType="com.hanzaitu.common.domain.ChatKeyEntity">
+        SELECT id,chat_key,model,create_time,proxy_host,proxy_port,
+               max_token,temperature,number_of_contexts FROM ai_gpt_key WHERE deleted = 0
+    </select>
+</mapper>

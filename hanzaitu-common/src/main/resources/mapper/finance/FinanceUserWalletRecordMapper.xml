@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzaitu.common.mapper.FinanceUserWalletRecordMapper">
+
+
+    <select id="selectListByCustomerUserId" resultType="com.hanzaitu.common.vo.FinanceUserWalletRecordVO">
+        select
+        *
+        from finance_user_wallet_record
+        where customer_user_id = #{param.userId}
+        <if test="param.startTime != null and param.startTime != ''">
+            and create_time <![CDATA[ >= ]]> #{param.startTime}
+        </if>
+        <if test="param.endTime != null and param.endTime != ''">
+            and create_time <![CDATA[ <= ]]> #{param.endTime}
+        </if>
+        order by create_time desc
+    </select>
+</mapper>
